@@ -1,0 +1,50 @@
+create database condominio;
+use condominio;
+
+create table tipo_doc(
+	   idTipoDoc int,
+	   descricao char(20) not null,
+	   primary key (idTipoDoc));
+
+create table morador(
+	   documentoMora int,
+	   idTipoDoc int,
+	   nome char(30) not null,
+	   primary key(documentoMora),
+	   foreign key(itTipoDoc) references tipo_doc.idTipoDoc);
+	   
+create table unidade(
+	   idUnidade int,
+	   bloco char(4) not null,
+	   primary key(idUnidade));
+		
+create table moraUnidade(
+	   idUnidade int,
+	   documentoMora int,
+	   data date not null,
+	   foreign key(idUnidade) references unidade.idUnidade,
+	   foreign key(documentoMora) references morador.documentoMora);
+		
+create table visitante(
+	   documentoVisi int,
+	   idTipoDoc int,
+	   nome char(30) not null,
+	   primary key(documentoVisi),
+	   foreign key(idTipoDoc) references tipo_doc.idTipoDoc);
+		
+create table visita(
+	   idVisita int,
+	   documentoVisi int,
+	   data date not null,
+	   motivo char(40) not null,
+	   primary key(idVisita),
+	   foreign key(documentoVisi) references visitante.documentoVisi);
+		
+create table carro(
+	   idCarro int,
+	   documentoMora int,
+	   placa char(7) not null,
+	   cor char(10) not null,
+	   marca char(20) not null,
+	   primary key(idCarro),
+	   foreign key(documentoMora) references morador.documentoMora);
